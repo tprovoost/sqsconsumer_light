@@ -8,9 +8,10 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"sqsconsumer"
 
 	"github.com/aws/aws-sdk-go/service/sqs"
+	sqsconsumer "github.com/tprovoost/sqsconsumer_light"
+
 	"golang.org/x/net/context"
 )
 
