@@ -1,12 +1,12 @@
 package sqsconsumer_test
 
 import (
+	"sqsconsumer"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/stretchr/testify/assert"
-	"github.com/tprovoost/sqsconsumer"
 )
 
 func TestSQSInterfaceImplementsSQSAPI(t *testing.T) {

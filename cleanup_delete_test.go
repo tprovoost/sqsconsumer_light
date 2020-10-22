@@ -13,7 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
-	"github.com/tprovoost/sqsconsumer/mock"
+	"github.com/tprovoost/sqsconsumer_light/mock"
 	"golang.org/x/net/context"
 )
 
@@ -34,18 +34,18 @@ func TestQueueConsumerDeletesOnSuccess(t *testing.T) {
 	m := mock.NewMockSQSAPI(ctl)
 	received := &sqs.ReceiveMessageOutput{
 		Messages: []*sqs.Message{
-			&sqs.Message{MessageId: aws.String("i1"), ReceiptHandle: aws.String("r1")},
-			&sqs.Message{MessageId: aws.String("i2"), ReceiptHandle: aws.String("r2")},
-			&sqs.Message{MessageId: aws.String("i3"), ReceiptHandle: aws.String("r3")},
-			&sqs.Message{MessageId: aws.String("i4"), ReceiptHandle: aws.String("r4")},
-			&sqs.Message{MessageId: aws.String("i5"), ReceiptHandle: aws.String("r5")},
-			&sqs.Message{MessageId: aws.String("i6"), ReceiptHandle: aws.String("r6")},
-			&sqs.Message{MessageId: aws.String("i7"), ReceiptHandle: aws.String("r7")},
-			&sqs.Message{MessageId: aws.String("i8"), ReceiptHandle: aws.String("r8")},
-			&sqs.Message{MessageId: aws.String("i9"), ReceiptHandle: aws.String("r9")},
-			&sqs.Message{MessageId: aws.String("i10"), ReceiptHandle: aws.String("r10")},
-			&sqs.Message{MessageId: aws.String("i11"), ReceiptHandle: aws.String("r11")},
-			&sqs.Message{MessageId: aws.String("i12"), ReceiptHandle: aws.String("r12")},
+			{MessageId: aws.String("i1"), ReceiptHandle: aws.String("r1")},
+			{MessageId: aws.String("i2"), ReceiptHandle: aws.String("r2")},
+			{MessageId: aws.String("i3"), ReceiptHandle: aws.String("r3")},
+			{MessageId: aws.String("i4"), ReceiptHandle: aws.String("r4")},
+			{MessageId: aws.String("i5"), ReceiptHandle: aws.String("r5")},
+			{MessageId: aws.String("i6"), ReceiptHandle: aws.String("r6")},
+			{MessageId: aws.String("i7"), ReceiptHandle: aws.String("r7")},
+			{MessageId: aws.String("i8"), ReceiptHandle: aws.String("r8")},
+			{MessageId: aws.String("i9"), ReceiptHandle: aws.String("r9")},
+			{MessageId: aws.String("i10"), ReceiptHandle: aws.String("r10")},
+			{MessageId: aws.String("i11"), ReceiptHandle: aws.String("r11")},
+			{MessageId: aws.String("i12"), ReceiptHandle: aws.String("r12")},
 		},
 	}
 
@@ -112,8 +112,8 @@ func TestQueueConsumerDoesNotDeleteOnFailure(t *testing.T) {
 	m := mock.NewMockSQSAPI(ctl)
 	received := &sqs.ReceiveMessageOutput{
 		Messages: []*sqs.Message{
-			&sqs.Message{MessageId: aws.String("i1"), ReceiptHandle: aws.String("r1")},
-			&sqs.Message{MessageId: aws.String("i2"), ReceiptHandle: aws.String("r2")},
+			{MessageId: aws.String("i1"), ReceiptHandle: aws.String("r1")},
+			{MessageId: aws.String("i2"), ReceiptHandle: aws.String("r2")},
 		},
 	}
 

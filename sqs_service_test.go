@@ -7,7 +7,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
-	"github.com/tprovoost/sqsconsumer/mock"
+	"github.com/tprovoost/sqsconsumer_light/mock"
 )
 
 func TestSetupQueueExists(t *testing.T) {

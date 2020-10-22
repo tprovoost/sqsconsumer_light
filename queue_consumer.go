@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tprovoost/sqsconsumer/sqsmessage"
+	"github.com/tprovoost/sqsconsumer_light/sqsmessage"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/sqs"
