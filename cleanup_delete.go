@@ -16,15 +16,20 @@ type deleteQueue struct {
 	svc                 *SQSService
 	drainTimeout        time.Duration
 	accumulationTimeout time.Duration
+	waitTime            time.Duration
 }
 
-// NewBatchDeleter starts a batch deleter routine that deletes messages after they are sent to the returned channel
+var defaultWaitTime time.Duration = 2
+
+// NewBatchDeleter starts a batch deleter routine that deletes messages
+// after they are sent to the returned channel
 func NewBatchDeleter(ctx context.Context, wg *sync.WaitGroup, s *SQSService, every, drainTimeout time.Duration) chan<- *sqs.Message {
 	dq := &deleteQueue{
 		svc:                 s,
 		accumulationTimeout: every,
 		drainTimeout:        drainTimeout,
 		queue:               make(chan *sqs.Message),
+		waitTime:            defaultWaitTime,
 	}
 	wg.Add(1)
 	go dq.start(ctx, wg)
@@ -83,10 +88,13 @@ func (dq *deleteQueue) deleteFromPending() {
 	}
 	fails, err := dq.deleteBatch(dq.entries[:n])
 	if err != nil {
-		dq.svc.Logger("Error deleting batch: %s", err)
+		dq.waitTime = dq.waitTime * dq.waitTime
+		dq.svc.Logger("Error deleting batch: %s\nSleeping for %d seconds", err, dq.waitTime)
+		time.Sleep(dq.waitTime * time.Second)
 		return
 	}
 
+	dq.waitTime = defaultWaitTime
 	dq.entries = dq.entries[n:]
 
 	if len(fails) > 0 {
