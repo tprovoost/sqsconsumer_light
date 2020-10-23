@@ -34,8 +34,8 @@ func TestQueueConsumerExtendsLongJobs(t *testing.T) {
 	m := mock.NewMockSQSAPI(ctl)
 	received := &sqs.ReceiveMessageOutput{
 		Messages: []*sqs.Message{
-			&sqs.Message{MessageId: aws.String("i1"), ReceiptHandle: aws.String("r1")},
-			&sqs.Message{MessageId: aws.String("i2"), ReceiptHandle: aws.String("r2")},
+			{MessageId: aws.String("i1"), ReceiptHandle: aws.String("r1")},
+			{MessageId: aws.String("i2"), ReceiptHandle: aws.String("r2")},
 		},
 	}
 

@@ -12,11 +12,12 @@ import (
 	"golang.org/x/net/context"
 )
 
-var (
-	ErrShutdownChannelClosed = errors.New("shutDown channel is already closed")
-)
+// ErrShutdownChannelClosed is the error thrown when channel is already
+// closed on shutdown.
+var ErrShutdownChannelClosed = errors.New("shutDown channel is already closed")
 
-// NewConsumer creates a Consumer that uses the given SQSService to connect and invokes the handler for each message received.
+// NewConsumer creates a Consumer that uses the given SQSService to connect
+// and invokes the handler for each message received.
 func NewConsumer(s *SQSService, handler MessageHandlerFunc) *Consumer {
 	return &Consumer{
 		s:                              s,

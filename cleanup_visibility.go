@@ -19,7 +19,7 @@ type visibilityExtenderQueue struct {
 	ticker        <-chan time.Time
 }
 
-// NewBatchBatchVisibilityExtender starts a batch visibility extender routine that extends visibilty on messages until they are sent to the returned channel
+// NewBatchVisibilityExtender starts a batch visibility extender routine that extends visibilty on messages until they are sent to the returned channel
 func NewBatchVisibilityExtender(ctx context.Context, s *SQSService, ticker <-chan time.Time, extensionSecs int64, pending []*sqs.Message) chan<- *sqs.Message {
 	entries := make([]*sqs.Message, len(pending))
 	copy(entries, pending)

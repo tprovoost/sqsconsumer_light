@@ -2,11 +2,10 @@ package sqsconsumer
 
 import (
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
 )
 
-// Takes SQS type as an argument so the library may be mocked and tested locally
+// NewSQSService takes SQS type as an argument so the library may be mocked and tested locally
 func NewSQSService(queueName string, svc SQSAPI) (*SQSService, error) {
 
 	s := &SQSService{
@@ -23,25 +22,6 @@ func NewSQSService(queueName string, svc SQSAPI) (*SQSService, error) {
 	s.URL = url
 
 	return s, nil
-}
-
-// SQSServiceForQueue creates an AWS SQS client configured for the given region and gets or creates a queue with the given name.
-func SQSServiceForQueue(queueName string, opts ...AWSConfigOption) (*SQSService, error) {
-	conf := &aws.Config{}
-	for _, o := range opts {
-		o(conf)
-	}
-
-	svc := sqs.New(session.New(conf))
-	return NewSQSService(queueName, svc)
-}
-
-type AWSConfigOption func(*aws.Config)
-
-func OptAWSRegion(region string) AWSConfigOption {
-	return func(c *aws.Config) {
-		c.Region = aws.String(region)
-	}
 }
 
 // SQSService links an SQS client with a queue URL.
